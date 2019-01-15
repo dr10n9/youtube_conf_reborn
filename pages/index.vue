@@ -1,19 +1,19 @@
 <template>
   <div class="container">
-    <Navbar/>
     <Welcome/>
+    <Form/>
   </div>
 </template>
 
 <script>
 
 import Welcome from '~/components/Welcome.vue'
-import Navbar from '~/components/Navbar'
+import Form from '~/components/Form'
 
 export default {
   components: {
     Welcome,
-    Navbar
+    Form
   }
 }
 </script>

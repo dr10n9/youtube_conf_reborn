@@ -5,8 +5,26 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
+const passport = require('passport');
+const db = require('./config/db');
+const session 		= require('express-session');
+const mongoose		= require('mongoose');
 
+// Configure ---
 app.set('port', port)
+mongoose.connect(db.url);
+require('./config/passport')(passport);
+
+app.use(session({ 
+	secret: 'knowledgeispower',
+	resave: false
+})); 
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+// Routes ---
+require('./routes/auth')(app, passport);
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -33,3 +51,4 @@ async function start() {
   })
 }
 start()
+

@@ -5,6 +5,20 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('new socket');
+  socket.on('asd', (data) => {
+    console.log(data);
+    socket.emit('temp', {mes: 'temp from server'});
+  });
+  socket.on('click', (data) => {
+    console.log(data);
+    socket.emit('click_answer', {mes: 'thx for click'});
+  })
+})
 
 app.set('port', port)
 
@@ -26,7 +40,8 @@ async function start() {
   app.use(nuxt.render)
 
   // Listen the server
-  app.listen(port, host)
+  // app.listen(port, host)
+  server.listen(3000, '0.0.0.0');
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true

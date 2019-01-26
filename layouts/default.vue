@@ -1,5 +1,6 @@
 <template>
   <div>
+  <Navbar/>
   <nuxt/>
   </div>
 </template>
@@ -8,7 +9,9 @@
 import Navbar from '~/components/Navbar'
 
 export default {
-  Navbar
+  components: {
+    Navbar
+  }
 }
 
 // Checking

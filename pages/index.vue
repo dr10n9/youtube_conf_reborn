@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Navbar/>
     <Welcome/>
     <Socket/>
+    <Form/>
   </div>
 </template>
 
@@ -11,12 +11,14 @@
 import Welcome from '~/components/Welcome.vue';
 import Navbar from '~/components/Navbar';
 import Socket from '~/components/Socket';
+import Form from '~/components/Form';
 
 export default {
   components: {
     Welcome,
     Navbar,
-    Socket
+    Socket,
+    Form
   }
 }
 </script>

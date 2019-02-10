@@ -7,6 +7,10 @@ const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const passport = require('passport');
+const db = require('./config/db');
+const session 		= require('express-session');
+const mongoose		= require('mongoose');
 
 io.on('connection', (socket) => {
   console.log('new socket');
@@ -20,7 +24,22 @@ io.on('connection', (socket) => {
   })
 })
 
+
+// Configure ---
 app.set('port', port)
+mongoose.connect(db.url);
+require('./config/passport')(passport);
+
+app.use(session({ 
+	secret: 'knowledgeispower',
+	resave: false
+})); 
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+// Routes ---
+require('./routes/auth')(app, passport);
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -48,3 +67,4 @@ async function start() {
   })
 }
 start()
+

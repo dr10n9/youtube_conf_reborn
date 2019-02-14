@@ -12,6 +12,8 @@ const db = require('./config/db');
 const session 		= require('express-session');
 const mongoose		= require('mongoose');
 
+   // "start": "cross-env NODE_ENV=production node server/index.js",
+
 require('./config/socket.js')(io);
 
 // Configure ---

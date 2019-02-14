@@ -1,8 +1,13 @@
 <template>
     <div>
         <!-- <button v-on:click="tmp">{{temp}}</button> -->
-        <div v-if="user">
-          <a class="btn btn-primary" v-on:click="createRoom">Create room</a>
+        <div v-if="loaded">
+          <div class="btn-group btn-block">
+            <a class="btn btn-outline-primary" href="#" v-on:click="createRoom">Create room</a>
+            <a class="btn btn-outline-primary" href="#">Join room</a>
+            <a class="btn btn-outline-primary" href= "#" v-on:click="createRoom">Find room</a>
+            <a class="btn btn-outline-primary" href= "/showrooms" v-on:click="createRoom">Show rooms</a>
+          </div>
         </div>
     </div>
 </template>
@@ -14,21 +19,25 @@ import axios from 'axios';
 export default {
   data(){
     return {
-    temp: 'button',
-    token: '',
-    user: {}
+      // temp: 'button',
+      token: '',
+      user: {},
+      loaded: false
     }
   },
   methods: {
-    tmp(){
-    console.log('asd');
-    socket.emit('click', {message: 'clicked'});
-    },
+    // tmp(){
+    // console.log('asd');
+    // socket.emit('click', {message: 'clicked'});
+    // },
     createRoom() {
-      axios.get('/api/create_room')
-        .then((response) => {
-          if (response) {
-            this.$router.push(response.data.roomid);
+      axios.post('/api/room')
+        .then((res) => {
+          if (res.data) {
+            axios.post('/api/user/joinedrooms/' + res.data.roomid)
+            .then((res2) => {
+              this.$router.push(res.data.roomid);
+            })
           }
         })
     }
@@ -39,6 +48,7 @@ export default {
     this.$store.dispatch('authUser')
     .then(() => {
       this.user = this.$store.state.user;
+      if (this.user) this.loaded = true;
     })
   },
   mounted: () => {

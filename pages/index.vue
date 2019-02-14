@@ -2,7 +2,7 @@
   <div class="container">
     <Welcome/>
     <Socket/>
-    <div v-if="!user">
+    <div v-if="loaded == true">
       <Form/>
     </div>
   </div>
@@ -26,7 +26,8 @@ export default {
   },
   data() {
     return {
-      user: {}
+      user: {},
+      loaded: false
     }
   },
   // asyncData() {
@@ -49,6 +50,8 @@ export default {
     this.$store.dispatch('authUser')
     .then(() => {
         this.user = this.$store.state.user;
+        if (!this.user)
+        this.loaded = true
       })
     // console.log('user async: ' + JSON.stringify(this.user));
     // axios.get('http://127.0.0.1:3000/api/user').then(response => {

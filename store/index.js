@@ -26,12 +26,10 @@ const store = () => new Vuex.Store({
   mutations: {
     setAuthUser (state, user) {
       state.user = user;
-      console.log('res: ' + JSON.stringify(state));
     }
   },
   getters: {
     doneUser: state => {
-      console.log('getter: + ', state.user)
       return state.user
     }
   }

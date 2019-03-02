@@ -17,9 +17,11 @@ module.exports = function(passport) {
   },
   function(accessToken, refreshToken, profile, done) {
        User.findOne({ googleId: profile.id }, function (err, user) {
+        console.log(user);
         if (!user) {
           user = new User({
-            googleId: profile.id
+            googleId: profile.id,
+            displayName: profile.displayName
           });
           user.save(err => {
             if (err) console.log(err);

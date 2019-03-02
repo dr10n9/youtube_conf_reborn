@@ -7,7 +7,8 @@ let mongoose			= require('mongoose');
 let userSchema = mongoose.Schema({
 
 		googleId:				String,
-		displayName:		String
+		displayName:		String,
+		joinedrooms:		[{roomid: String}]
 		// avatar	 	 : {
 		//   data 				: Buffer,
 		//   contentType		: String,

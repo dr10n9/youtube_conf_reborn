@@ -7,10 +7,14 @@
 
 <script>
 import Navbar from '~/components/Navbar'
+import axios from 'axios'
 
 export default {
   components: {
     Navbar
+  },
+  beforeMount() {
+
   }
 }
 

@@ -33,6 +33,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/vue-youtube'
   ],
 
   /*
@@ -49,6 +50,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    host: '127.0.0.1',
+    port: 3000
   },
 
   /*
